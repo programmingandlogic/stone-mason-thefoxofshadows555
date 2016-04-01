@@ -1,0 +1,43 @@
+import stanford.karel.*;
+
+public class StoneMasonKarel extends SuperKarel {
+		public void run() {
+			while (frontIsClear()) {
+				fixColumn();
+				goBack();
+				moveToNextColumn();
+			}
+			fixColumn();
+			goBack();
+			moveToNextColumn();
+	}
+		//this fixes the pillars
+		private void fixColumn() {
+			turnLeft();
+			if (noBeepersPresent()) {
+        		putBeeper();
+        	}
+				while (frontIsClear()) {
+                	move();
+                	if (noBeepersPresent()) {
+                		putBeeper();
+                	}
+			}
+        }
+		//this puts Karel back at the bottom of the shiny new pillar
+		private void goBack() {
+			turnAround();
+			while (frontIsClear()) {
+				move();
+			}
+		}
+		//moves Karel to the next pillar to start again
+		private void moveToNextColumn() {
+			turnLeft();
+			if (frontIsClear()) {
+				for (int i = 0; i < 4; i++) {
+					move();
+				}
+			}
+		}
+}
